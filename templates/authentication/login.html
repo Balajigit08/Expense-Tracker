@@ -1,0 +1,72 @@
+{% extends 'base_auth.html' %}
+{% load static %}
+
+
+{% block title %}
+Login 
+{% endblock title %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-4"></div>
+
+        <div class="col-md-4">
+            <div class="card mt-5">
+                <div class="card-header">
+                    <h4>Login to your Account</h4>
+
+                    
+                </div>
+
+                <div class="card-body">
+                    <form method="post" action="{% url 'login' %}">
+
+                        {% include 'partials/_messages.html' %}
+
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <label for="usernameField">Username</label>
+                            <input type="text" name="username" class="form-control" id="usernameField" placeholder="Username" value="{{ fieldValues.username }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="passwordField">Password</label>
+                            <small class="showPasswordToggle float-right py-1">SHOW</small>
+                            <input type="password" name="password" class="form-control" id="passwordField" placeholder="Password">
+                            
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block submit-btn">Login</button>
+
+                    </form>
+                </div>
+
+                <div class="card-footer">
+                    <label><a href="{% url 'request-reset-email' %}">Forgot Password.</a></label> <br />
+                    <label>Don't have an Account? <a href="{% url 'register' %}">Register.</a></label>      
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4"></div>
+    </div>
+
+
+    {% comment %} Show/Hide Password {% endcomment %}
+    <script>
+        const showPasswordToggle = document.querySelector('.showPasswordToggle');
+        const passwordField = document.querySelector('#passwordField');
+
+        showPasswordToggle.addEventListener('click', (e) => {
+            // console.log('mouse found');
+            if(showPasswordToggle.textContent === 'SHOW'){
+                showPasswordToggle.textContent = 'HIDE';
+                passwordField.setAttribute("type","text");
+            } else {
+                showPasswordToggle.textContent = 'SHOW';
+                passwordField.setAttribute("type","password");
+            }
+        });
+    </script>
+{% endblock content %}
